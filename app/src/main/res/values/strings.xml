@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">西安公交查询</string>
+    <string name="bus_line_toolbar_name">BusLine</string>
+    <string name="arrow">→</string>
+    <string name="bus_ticket_value">票价：</string>
+    <string name="bus_can_take_card">（可刷卡）</string>
+    <string name="bus_first_station">首</string>
+    <string name="bus_last_station">末</string>
+    <string name="bus_ticket">0.00元</string>
+    <string name="bus_first_car">00:00</string>
+    <string name="bus_last_car">00:00</string>
+    <string name="bus_space">平均发车间隔：</string>
+    <string name="bus_sum">配车数量：</string>
+    <string name="unit">分钟</string>
+    <string name="main_ed_hint">请输入公交线路名称</string>
+</resources>
