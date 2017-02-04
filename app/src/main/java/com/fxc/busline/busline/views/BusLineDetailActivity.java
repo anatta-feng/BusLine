@@ -120,40 +120,6 @@ public class BusLineDetailActivity extends BaseActivity implements BusLineContra
 		}
 	}
 
-	private String getFirstStationName(boolean isUp) {
-		String mFirstStationName;
-		if (isUp) {
-			mFirstStationName = Constant.mBusLinesBean.getUp().get(0).getStation_name();
-			if (mFirstStationName.length() > 5) {
-				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
-			}
-		} else {
-			mFirstStationName = Constant.mBusLinesBean.getDown().get(0).getStation_name();
-			if (mFirstStationName.length() > 5) {
-				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
-			}
-		}
-		return mFirstStationName;
-	}
-
-	private String getLastStationName(boolean isUp) {
-		String mLastStationName;
-		if (isUp) {
-			mLastStationName = Constant.mBusLinesBean.getUp().get(Constant.mBusLinesBean.getUp().size() - 1)
-					.getStation_name();
-			if (mLastStationName.length() > 5) {
-				mLastStationName = mLastStationName.substring(0, 4) + "...";
-			}
-		} else {
-			mLastStationName = Constant.mBusLinesBean.getDown().get(Constant.mBusLinesBean.getDown().size() - 1)
-					.getStation_name();
-			if (mLastStationName.length() > 5) {
-				mLastStationName = mLastStationName.substring(0, 4) + "...";
-			}
-		}
-		return mLastStationName;
-	}
-
 	@Override
 	public void setBusLineDetailsView(BusLinesBean busLinesBean) {
 		boolean isUp = Constant.isUp;
@@ -236,5 +202,34 @@ public class BusLineDetailActivity extends BaseActivity implements BusLineContra
 				}
 			}
 		});
+	}
+
+	private String getFirstStationName(boolean isUp) {
+		String mFirstStationName;
+		if (isUp) {
+			mFirstStationName = formStationName(Constant.mBusLinesBean.getUp().get(0).getStation_name());
+		} else {
+			mFirstStationName = formStationName(Constant.mBusLinesBean.getDown().get(0).getStation_name());
+		}
+		return mFirstStationName;
+	}
+
+	private String formStationName(String mStationName) {
+		if (mStationName.length() > 5) {
+			mStationName = mStationName.substring(0, 4) + "...";
+		}
+		return mStationName;
+	}
+
+	private String getLastStationName(boolean isUp) {
+		String mLastStationName;
+		if (isUp) {
+			mLastStationName = formStationName(Constant.mBusLinesBean.getUp().get(Constant.mBusLinesBean.getUp().size() - 1)
+					.getStation_name());
+		} else {
+			mLastStationName = formStationName(Constant.mBusLinesBean.getDown().get(Constant.mBusLinesBean.getDown().size() - 1)
+					.getStation_name());
+		}
+		return mLastStationName;
 	}
 }
