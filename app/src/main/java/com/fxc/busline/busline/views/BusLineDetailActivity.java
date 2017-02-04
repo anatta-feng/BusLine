@@ -120,32 +120,54 @@ public class BusLineDetailActivity extends BaseActivity implements BusLineContra
 		}
 	}
 
-	@Override
-	public void setBusLineDetailsView(BusLinesBean busLinesBean) {
-		if (Constant.isUp) {
-			String mFirstStationName = busLinesBean.getUp().get(0).getStation_name();
-			String mLastStationName = busLinesBean.getUp().get(busLinesBean.getUp().size() - 1).getStation_name();
+	private String getFirstStationName(boolean isUp) {
+		String mFirstStationName;
+		if (isUp) {
+			mFirstStationName = Constant.mBusLinesBean.getUp().get(0).getStation_name();
 			if (mFirstStationName.length() > 5) {
 				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
 			}
+		} else {
+			mFirstStationName = Constant.mBusLinesBean.getDown().get(0).getStation_name();
+			if (mFirstStationName.length() > 5) {
+				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
+			}
+		}
+		return mFirstStationName;
+	}
+
+	private String getLastStationName(boolean isUp) {
+		String mLastStationName;
+		if (isUp) {
+			mLastStationName = Constant.mBusLinesBean.getUp().get(Constant.mBusLinesBean.getUp().size() - 1)
+					.getStation_name();
 			if (mLastStationName.length() > 5) {
 				mLastStationName = mLastStationName.substring(0, 4) + "...";
 			}
+		} else {
+			mLastStationName = Constant.mBusLinesBean.getDown().get(Constant.mBusLinesBean.getDown().size() - 1)
+					.getStation_name();
+			if (mLastStationName.length() > 5) {
+				mLastStationName = mLastStationName.substring(0, 4) + "...";
+			}
+		}
+		return mLastStationName;
+	}
+
+	@Override
+	public void setBusLineDetailsView(BusLinesBean busLinesBean) {
+		boolean isUp = Constant.isUp;
+		if (isUp) {
+			String mFirstStationName = getFirstStationName(isUp);
+			String mLastStationName = getLastStationName(isUp);
 			tvFirstStation.setText(mFirstStationName);
 			tvLastStation.setText(mLastStationName);
 		} else {
-			String mFirstStationName = busLinesBean.getDown().get(0).getStation_name();
-			String mLastStationName = busLinesBean.getDown().get(busLinesBean.getDown().size() - 1).getStation_name();
-			if (mFirstStationName.length() > 5) {
-				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
-			}
-			if (mLastStationName.length() > 5) {
-				mLastStationName = mLastStationName.substring(0, 4) + "...";
-			}
+			String mFirstStationName = getFirstStationName(isUp);
+			String mLastStationName = getLastStationName(isUp);
 			tvFirstStation.setText(mFirstStationName);
 			tvLastStation.setText(mLastStationName);
 		}
-
 		// 在跑的车辆
 		tvBusSum.setText(String.valueOf(busLinesBean.getRun_nums()));
 		// 发车间隔
@@ -200,12 +222,17 @@ public class BusLineDetailActivity extends BaseActivity implements BusLineContra
 					Constant.isUp = true;
 					mRecyclerView.setAdapter(mUpAdapter);
 				}
+				boolean isUp = Constant.isUp;
 				if (Constant.isUp) {
-					tvFirstStation.setText(Constant.mBusLinesBean.getUp().get(0).getStation_name());
-					tvLastStation.setText(Constant.mBusLinesBean.getUp().get(Constant.mBusLinesBean.getUp().size() - 1).getStation_name());
+					String mFirstStationName = getFirstStationName(isUp);
+					String mLastStationName = getLastStationName(isUp);
+					tvFirstStation.setText(mFirstStationName);
+					tvLastStation.setText(mLastStationName);
 				} else {
-					tvFirstStation.setText(Constant.mBusLinesBean.getDown().get(0).getStation_name());
-					tvLastStation.setText(Constant.mBusLinesBean.getDown().get(Constant.mBusLinesBean.getDown().size() - 1).getStation_name());
+					String mFirstStationName = getFirstStationName(isUp);
+					String mLastStationName = getLastStationName(isUp);
+					tvFirstStation.setText(mFirstStationName);
+					tvLastStation.setText(mLastStationName);
 				}
 			}
 		});
