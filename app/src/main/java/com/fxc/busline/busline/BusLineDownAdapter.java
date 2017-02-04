@@ -41,7 +41,8 @@ public class BusLineDownAdapter extends RecyclerView.Adapter<BusLineDownAdapter.
 	@Override
 	public void onBindViewHolder(MyViewHolder holder, int position) {
 		// 设置站点名称
-		holder.tvStationName.setText(mDataList.get(position).getStation_name());
+		String mStationName = position + 1 + ". " + mDataList.get(position).getStation_name();
+		holder.tvStationName.setText(mStationName);
 		// 设置是否有公交
 		int busCount = mDataList.get(position).getBus_count();
 		if (busCount == 0) {

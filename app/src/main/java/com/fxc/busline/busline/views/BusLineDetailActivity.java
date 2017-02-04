@@ -20,6 +20,7 @@ import com.fxc.busline.busline.beans.BusOperatingTimeBean;
 import com.fxc.busline.busline.BusLineUpAdapter;
 import com.fxc.busline.busline.BusLineContract;
 import com.fxc.busline.busline.presenter.MyBusPresent;
+import com.fxc.busline.utils.API;
 import com.fxc.busline.utils.Constant;
 
 import java.util.HashMap;
@@ -112,17 +113,37 @@ public class BusLineDetailActivity extends BaseActivity implements BusLineContra
 		mUpAdapter = new BusLineUpAdapter(Constant.mBusLinesBean.getUp(), BusLineDetailActivity.this);
 		mDownAdapter = new BusLineDownAdapter(Constant.mBusLinesBean.getDown(), BusLineDetailActivity.this);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(BusLineDetailActivity.this));
-		mRecyclerView.setAdapter(mUpAdapter);
+		if (Constant.isUp) {
+			mRecyclerView.setAdapter(mUpAdapter);
+		} else {
+			mRecyclerView.setAdapter(mDownAdapter);
+		}
 	}
 
 	@Override
 	public void setBusLineDetailsView(BusLinesBean busLinesBean) {
 		if (Constant.isUp) {
-			tvFirstStation.setText(busLinesBean.getUp().get(0).getStation_name());
-			tvLastStation.setText(busLinesBean.getUp().get(busLinesBean.getUp().size() - 1).getStation_name());
+			String mFirstStationName = busLinesBean.getUp().get(0).getStation_name();
+			String mLastStationName = busLinesBean.getUp().get(busLinesBean.getUp().size() - 1).getStation_name();
+			if (mFirstStationName.length() > 5) {
+				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
+			}
+			if (mLastStationName.length() > 5) {
+				mLastStationName = mLastStationName.substring(0, 4) + "...";
+			}
+			tvFirstStation.setText(mFirstStationName);
+			tvLastStation.setText(mLastStationName);
 		} else {
-			tvFirstStation.setText(busLinesBean.getDown().get(0).getStation_name());
-			tvLastStation.setText(busLinesBean.getDown().get(busLinesBean.getUp().size() - 1).getStation_name());
+			String mFirstStationName = busLinesBean.getDown().get(0).getStation_name();
+			String mLastStationName = busLinesBean.getDown().get(busLinesBean.getDown().size() - 1).getStation_name();
+			if (mFirstStationName.length() > 5) {
+				mFirstStationName = mFirstStationName.substring(0, 4) + "...";
+			}
+			if (mLastStationName.length() > 5) {
+				mLastStationName = mLastStationName.substring(0, 4) + "...";
+			}
+			tvFirstStation.setText(mFirstStationName);
+			tvLastStation.setText(mLastStationName);
 		}
 
 		// 在跑的车辆
